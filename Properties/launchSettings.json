@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "WeatherAlertFunction": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7218"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 34612,
+      "useSSL": false
+    }
+  }
+}
