@@ -9,7 +9,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: 'WeatherAlertFunction'   # Replace with your Azure Function App name
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'             # Path to your function app project, defaults to repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'WeatherAlertFunction' # Path to your function app project
   DOTNET_VERSION: '8.0.x'                         # Target .NET version
 
 jobs:
@@ -24,13 +24,25 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Restore and Build
+    - name: Restore Dependencies
       run: |
-        dotnet restore ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-        dotnet build ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} --configuration Release --output ./output
+        dotnet restore ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/WeatherAlertFunction.csproj
 
-    - name: 'Login via Azure CLI'
+    - name: Build Project
+      run: |
+        dotnet build ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/WeatherAlertFunction.csproj --configuration Release
+
+    - name: Publish Project
+      run: |
+        dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/WeatherAlertFunction.csproj --configuration Release --output ./output
+
+    - name: Login to Azure
       uses: azure/login@v1
       with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy to Azure Functions
+      uses: Azure/functions-action@v1
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: './output'
