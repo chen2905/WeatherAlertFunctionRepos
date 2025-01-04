@@ -9,7 +9,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: 'WeatherAlertFunction'   # Replace with your Azure Function App name
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'WeatherAlertFunction' # Path to your function app project
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # Path to your function app project
   DOTNET_VERSION: '8.0.x'                         # Target .NET version
 
 jobs:
