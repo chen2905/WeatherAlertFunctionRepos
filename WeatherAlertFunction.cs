@@ -19,7 +19,7 @@ namespace WeatherAlertFunction
 
         [Function("WeatherAlertFunction")]
         public static async Task Run(
-           [TimerTrigger("0 */10 * * * *")] TimerInfo myTimer,
+           [TimerTrigger("0 22 * * *")] TimerInfo myTimer,
           
             FunctionContext context)
         {
