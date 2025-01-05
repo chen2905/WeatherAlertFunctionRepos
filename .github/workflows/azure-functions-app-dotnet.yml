@@ -1,7 +1,7 @@
 # This workflow will build a .NET Core project and deploy it to an Azure Functions App on Windows when a commit is pushed to the main branch.
 # Ensure you've set up your Azure Function App and configured the required secrets in GitHub
 
-name: Deploy WeatherAlertFunction To AZ
+name: Deploy WeatherAlertFunction To AZ app services
 
 on:
   push:
